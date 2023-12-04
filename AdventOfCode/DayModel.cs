@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdventOfCode
 {
@@ -16,7 +11,9 @@ namespace AdventOfCode
         }
         private string getInputFilePath(string inputFileName)
         {
-            return $@"{Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\.."))}\{this.GetType().Name}\{inputFileName}";
+            return Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @$"..\..\..\{this.GetType().Name}\{inputFileName}"));
         }
+        public abstract long Task1();
+        public abstract long Task2();
     }
 }

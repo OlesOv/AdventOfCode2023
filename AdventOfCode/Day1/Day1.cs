@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
-namespace AdventOfCode.Day1
+namespace AdventOfCode
 {
     internal class Day1 : DayModel
     {
@@ -14,7 +9,7 @@ namespace AdventOfCode.Day1
         {
         }
 
-        public long Task1()
+        public override long Task1()
         {
             long result = 0;
 
@@ -28,7 +23,7 @@ namespace AdventOfCode.Day1
             }
             return result;
         }
-        public long Task2()
+        public override long Task2()
         {
             long result = 0;
 

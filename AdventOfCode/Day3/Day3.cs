@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿using System.Text.RegularExpressions;
 
-namespace AdventOfCode.Day3
+namespace AdventOfCode
 {
     internal class Day3 : DayModel
     {
@@ -14,7 +8,7 @@ namespace AdventOfCode.Day3
         {
         }
 
-        public long Task1()
+        public override long Task1()
         {
             long result = 0;
 
@@ -33,7 +27,7 @@ namespace AdventOfCode.Day3
             }
             return result;
         }
-        public long Task2()
+        public override long Task2()
         {
             long result = 0;
 
@@ -50,23 +44,6 @@ namespace AdventOfCode.Day3
                         result += numbers.First() * numbers.Last();
                     }
                 }
-            }
-            return result;
-        }
-        private int getAdjacentCount(Match match, int lineIndex, Regex symbols)
-        {
-            int result = 0;
-            int prevline = Math.Max(0, lineIndex - 1);
-            int nextline = Math.Min(_input.Length-1, lineIndex + 1);
-
-            int prevIndex = Math.Max(0, match.Index - 1);
-            int lengthToCheck = match.Length;
-            if (match.Index != 0) lengthToCheck++;
-            if (prevIndex + lengthToCheck + 1 < _input[lineIndex].Length) lengthToCheck++;
-
-            for (int i = prevline; i <= nextline; i++)
-            {
-                result += symbols.Matches(_input[i].Substring(prevIndex, lengthToCheck)).Count;
             }
             return result;
         }
