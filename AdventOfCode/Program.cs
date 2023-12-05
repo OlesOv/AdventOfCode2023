@@ -18,3 +18,7 @@ Console.WriteLine(day3.Task2());
 Day4 day4 = new(@"Input.txt");
 Console.WriteLine(day4.Task1());
 Console.WriteLine(day4.Task2());
+
+Day5 day5 = new(@"Input.txt");
+Console.WriteLine(day5.Task1());
+Console.WriteLine(day5.Task2());
