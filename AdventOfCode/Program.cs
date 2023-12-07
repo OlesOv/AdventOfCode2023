@@ -5,7 +5,7 @@ using AdventOfCode;
 
 
 int day = int.Parse(args.Length == 0 ? Console.ReadLine() : args[0]);
-string inputFile = args.Length > 1 ? args[1] : "testInput.txt";
+string inputFile = args.Length > 1 ? args[1] : "Input.txt";
 
 var DaySolution = DayFactory.Create(day, inputFile);
 Console.WriteLine(DaySolution.Task1());
