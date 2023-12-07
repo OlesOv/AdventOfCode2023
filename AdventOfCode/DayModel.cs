@@ -16,4 +16,24 @@ namespace AdventOfCode
         public abstract long Task1();
         public abstract long Task2();
     }
+    internal static class DayFactory
+    {
+        public static DayModel Create(int day, string inputFileName)
+        {
+            var type = GetDayType(day);
+            if (type == null) throw new InvalidOperationException($"Day {day} solution not found");
+
+            return (DayModel)Activator.CreateInstance(type, inputFileName)!;
+        }
+
+        private static Type? GetDayType(int day)
+        {
+            var typeName = $"{nameof(AdventOfCode)}.Day{day}";
+            return AppDomain
+                .CurrentDomain
+                .GetAssemblies()
+                .Select(ass => ass.GetType(typeName))
+                .FirstOrDefault(t => t != null);
+        }
+    }
 }
