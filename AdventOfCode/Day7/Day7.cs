@@ -28,7 +28,7 @@
             var maxRank = _hands.Count();
             for (int i = 0; i < maxRank; i++)
             {
-                //Console.WriteLine($"{_hands[i].OriginalInput} {_hands[i].Bid} | {string.Join(',', _hands[i].Cards)} {_hands[i].Strength} {i+1} {_hands[i].Bid * (i + 1)}");
+                //Console.WriteLine($"{_hands[i].OriginalInput} {_hands[i].Bid} | {string.Join(',', _hands[i].Cards)} {_hands[i].Strength} {i + 1} {_hands[i].Bid * (i + 1)}");
                 result += _hands[i].Bid * (i + 1);
             }
             return result;
@@ -54,19 +54,21 @@
                 {
                     cardsCount[card]++;
                 }
-                if (cardsCount.Any(c => c == 5)) return 7;
-                if (cardsCount.Any(c => c == 4)) return 6;
-                if (cardsCount.Any(c => c == 3) && cardsCount.Any(c => c == 2)) return 5;
-                if (cardsCount.Any(c => c == 3)) return 4;
-                if (cardsCount.Count(c => c == 2) == 2) return 3;
-                if (cardsCount.Any(c => c == 2)) return 2;
-                return 1;
+                return CalcHandStrength(cardsCount);
             }
-            protected virtual int cardStrength(char card)
+            protected byte CalcHandStrength(int[] cardsCount)
             {
-                const string cards = "23456789TJQKA";
-                return cards.IndexOf(card);
+                byte maxPossibleValue = 1;
+                if (cardsCount.Any(c => c == 2)) maxPossibleValue = 2;
+                if (cardsCount.Count(c => c == 2) == 2) maxPossibleValue = 3;
+                if (cardsCount.Any(c => c == 3)) maxPossibleValue = 4;
+                if (cardsCount.Any(c => c == 3) && cardsCount.Any(c => c == 2)) maxPossibleValue = 5;
+                if (cardsCount.Any(c => c == 4)) maxPossibleValue = 6;
+                if (cardsCount.Any(c => c == 5)) maxPossibleValue = 7;
+
+                return maxPossibleValue;
             }
+            protected virtual int cardStrength(char card) => "23456789TJQKA".IndexOf(card);
 
             public int CompareTo(Hand? other)
             {
@@ -94,18 +96,6 @@
                 }
                 return Math.Max(CalcHandStrength(cardsCount), applyJoker(cardsCount));
             }
-            protected byte CalcHandStrength(int[] cardsCount)
-            {
-                byte maxPossibleValue = 1;
-                if (cardsCount.Any(c => c == 2)) maxPossibleValue = 2;
-                if (cardsCount.Count(c => c == 2) == 2) maxPossibleValue = 3;
-                if (cardsCount.Any(c => c == 3)) maxPossibleValue = 4;
-                if (cardsCount.Any(c => c == 3) && cardsCount.Any(c => c == 2)) maxPossibleValue = 5;
-                if (cardsCount.Any(c => c == 4)) maxPossibleValue = 6;
-                if (cardsCount.Any(c => c == 5)) maxPossibleValue = 7;
-
-                return maxPossibleValue;
-            }
             private byte applyJoker(int[] cardsCount)
             {
                 var max = cardsCount.Skip(1).Max();
@@ -121,11 +111,7 @@
                 return 0;
             }
 
-            protected override int cardStrength(char card)
-            {
-                const string cards = "J23456789TQKA";
-                return cards.IndexOf(card);
-            }
+            protected override int cardStrength(char card) => "J23456789TQKA".IndexOf(card);
         }
     }
 }
