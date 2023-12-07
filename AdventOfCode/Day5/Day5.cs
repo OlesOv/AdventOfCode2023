@@ -73,7 +73,8 @@
                 }
                 sourceRanges = rangesOutsideLastMapping;
             }
-            return mappedRanges.Concat(sourceRanges).ToList();
+            mappedRanges.AddRange(sourceRanges);
+            return mappedRanges;
         }
         private void populateMappingGroups()
         {
